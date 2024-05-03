@@ -12,5 +12,20 @@ export default class ProvinceService{
         const returnArray = await repo.getProvinceById(id);
         return returnArray;
     }
+    insertProvince = async (province) =>{
+        const repo = new ProvinceRepository();
+        const response = await repo.insertProvince(province);
+        return response;
+    }
+    updateById = async (province) => {
+        const repo = new ProvinceRepository();
+        const responde = await repo.updateById(province);
+        return responde;
+    }
+    deleteProvinceById = async (id) =>{
+        const repo = new ProvinceRepository();
+        const returnArray = await repo.deleteProvinceById(id);
+        return returnArray;
+    }
 
 }

@@ -1,5 +1,6 @@
 import {Router} from 'express';
 import ProvinceService from '../services/province-service.js'
+import Province from '../entities/province.js';
 
 const router = Router();
 const svc = new ProvinceService();
@@ -24,6 +25,44 @@ router.get('/:id', async(req,res) => {
     }
     else{
         respuesta = res.status(500).send("Error interno.");
+    }
+    return respuesta;
+});
+
+router.post('', async(req,res) => {
+    let respuesta;
+    respuesta = await svc.insertProvince(new Province(req.body.name, req.body.full_name, req.body.latitudeM, req.body.longitude, req.body.display_order));
+    if(respuesta){
+        respuesta = res.status(201).send("Provincia creada correctamente");
+    }
+    else{
+        respuesta = res.status(400).send("Error interno.");
+    }
+});
+
+router.put('', async(req,res) => {
+    let respuesta;
+    respuesta = await svc.updateById(new Province(req.body.id, req.body.name, req.body.full_name, req.body.latitudeM, req.body.longitude, req.body.display_order));
+    if(respuesta){
+        respuesta = res.status(201).send("Provincia actualizada correctamente");
+    }
+    else if(!respuesta){
+        respuesta = res.status(404).send("Provincia no encontrada.");
+    }
+    else{
+        respuesta = res.status(400).send("Bad Request")
+    }
+    return respuesta;
+});
+
+router.delete('/:id', async(req,res) => {
+    let respuesta;
+    respuesta = await svc.deleteProvinceById(req.params.id);
+    if(respuesta){
+        respuesta = res.status(200).send("Eliminado correctamente.");
+    }
+    else{
+        respuesta = res.status(404).send("No se encontro la provincia.");
     }
     return respuesta;
 });
