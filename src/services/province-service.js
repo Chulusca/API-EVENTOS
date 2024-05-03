@@ -7,5 +7,10 @@ export default class ProvinceService{
         const returnArray = await repo.getAllAsync();
         return returnArray;
     }
+    getProvinceById = async (id) =>{
+        const repo = new ProvinceRepository();
+        const returnArray = await repo.getProvinceById(id);
+        return returnArray;
+    }
 
 }
