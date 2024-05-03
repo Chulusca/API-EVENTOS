@@ -10,11 +10,13 @@ export default class ProvinceRepository{
             await client.connect();
             const sql = `SELECT * FROM provinces`;
             const result = await client.query(sql);
-            await client.end();
             returnArray = result.rows;
         }
         catch (error){
             console.log(error);
+        }
+        finally {
+            await client.end();
         }
         return returnArray;
     }
@@ -27,11 +29,13 @@ export default class ProvinceRepository{
             const sql = `SELECT * FROM provinces WHERE id=$1`;
             const values = [id];
             const result = await client.query(sql, values);
-            await client.end();
             returnArray = result.rows;
         }
         catch (error){
             console.log(error);
+        }
+        finally {
+            await client.end();
         }
         return returnArray;
     }
@@ -44,12 +48,14 @@ export default class ProvinceRepository{
                         VALUES ($1, $2, $3, $4, $5)`
             const values = [province.name, province.full_name, province.latitude, province.longitude, province.display_order];
             const result = await client.query(sql, values);
-            await client.end();
             return true;
         }
         catch (error){
             console.log(error);
             return false;
+        }
+        finally {
+            await client.end();
         }
     }
     updateById = async (province) => {
@@ -61,7 +67,6 @@ export default class ProvinceRepository{
                         WHERE id = $6`;
             const values = [province.name, province.full_name, province.latitude, province.longitude, province.display_order, province.id];
             const result = await client.query(sql, values);
-            await client.end();
             if(result.rowCount == 0){
                 return false;
             }
@@ -70,6 +75,9 @@ export default class ProvinceRepository{
         catch (error){
             console.log(error);
             return false;
+        }
+        finally {
+            await client.end();
         }
     }
     deleteProvinceById = async (id) => { 
@@ -92,7 +100,6 @@ export default class ProvinceRepository{
             const deleteProvinceSql = `DELETE FROM provinces WHERE id = $1`
             const deleteProvinceValues = [id];
             const deleteProvinceResult = await client.query(deleteProvinceSql, deleteProvinceValues);
-            await client.end();
             if(deleteProvinceResult.rowCount == 0){
                 return false;
             }
@@ -101,6 +108,9 @@ export default class ProvinceRepository{
         catch(error){
             console.log(error);
             return false;
+        }
+        finally {
+            await client.end();
         }
     }
 }
