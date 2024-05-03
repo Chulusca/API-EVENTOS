@@ -61,6 +61,9 @@ router.delete('/:id', async(req,res) => {
     if(respuesta){
         respuesta = res.status(200).send("Eliminado correctamente.");
     }
+    else if(respuesta ==  null){
+        respuesta = res.status(401).send("No hay autorizacion para eliminar esa provincia.")
+    }
     else{
         respuesta = res.status(404).send("No se encontro la provincia.");
     }

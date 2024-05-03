@@ -84,18 +84,6 @@ export default class ProvinceRepository{
         const client = new Client(config);
         try{
             await client.connect();
-            //Identificar registros de location.
-            const locationsSql = `SELECT id FROM locations WHERE id_province = $1`;
-            const values = [id];
-            const locationsResult = await client.query(locationsSql, values);
-
-            //Eliminar registros de localizacion.
-            for(const locationRow of locationsResult.rows){
-                const locationId = locationRow.id;
-                const deleteLocationQuery = `DELETE FROM locations WHERE id = $1`;
-                const deleteLocationValues = [locationId];
-                await client.query(deleteLocationQuery, deleteLocationValues);
-            }
             //Eliminar provincia.
             const deleteProvinceSql = `DELETE FROM provinces WHERE id = $1`
             const deleteProvinceValues = [id];
@@ -107,7 +95,7 @@ export default class ProvinceRepository{
         }   
         catch(error){
             console.log(error);
-            return false;
+            return null;
         }
         finally {
             await client.end();
