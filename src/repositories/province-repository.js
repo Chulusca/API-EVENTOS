@@ -72,16 +72,29 @@ export default class ProvinceRepository{
             return false;
         }
     }
-    deleteProvinceById = async (id) => {
+    deleteProvinceById = async (id) => { 
         const client = new Client(config);
         try{
             await client.connect();
-            const sql = `DELETE FROM provinces WHERE id=$1`;
+            //Identificar registros de location.
+            const locationsSql = `SELECT id FROM locations WHERE id_province = $1`;
             const values = [id];
-            const result = await client.query(sql, values);
+            const locationsResult = await client.query(locationsSql, values);
+
+            //Eliminar registros de localizacion.
+            for(const locationRow of locationsResult.rows){
+                const locationId = locationRow.id;
+                const deleteLocationQuery = `DELETE FROM locations WHERE id = $1`;
+                const deleteLocationValues = [locationId];
+                await client.query(deleteLocationQuery, deleteLocationValues);
+            }
+            //Eliminar provincia.
+            const deleteProvinceSql = `DELETE FROM provinces WHERE id = $1`
+            const deleteProvinceValues = [id];
+            const deleteProvinceResult = await client.query(deleteProvinceSql, deleteProvinceValues);
             await client.end();
-            return true;
-        }
+            return true
+        }   
         catch(error){
             console.log(error);
             return false;
