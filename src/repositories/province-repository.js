@@ -61,10 +61,10 @@ export default class ProvinceRepository{
                         WHERE id = $6`;
             const values = [province.name, province.full_name, province.latitude, province.longitude, province.display_order, province.id];
             const result = await client.query(sql, values);
+            await client.end();
             if(result.rowCount == 0){
                 return false;
             }
-            await client.end();
             return true;
         }
         catch (error){
@@ -93,6 +93,9 @@ export default class ProvinceRepository{
             const deleteProvinceValues = [id];
             const deleteProvinceResult = await client.query(deleteProvinceSql, deleteProvinceValues);
             await client.end();
+            if(deleteProvinceResult.rowCount == 0){
+                return false;
+            }
             return true
         }   
         catch(error){
