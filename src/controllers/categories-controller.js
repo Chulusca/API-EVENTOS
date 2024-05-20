@@ -24,7 +24,7 @@ router.get('/:id', async (req,res) => {
         respuesta = res.status(200).json(returnArray);
     }
     else{
-        respuesta = res.status(500).send("Error interno")
+        respuesta = res.status(404).send("No se encontro")
     }
 });
 
