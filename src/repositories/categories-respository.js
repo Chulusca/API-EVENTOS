@@ -21,4 +21,23 @@ export default class CategoriesRepository{
         }
         return returnArray;
     }
+    
+    getCategorieById = async (id) => {
+        let returnArray = null;
+        const client = new Client(config)
+        try{
+            await client.connect();
+            const sql = `SELECT * FROM event_categories WHERE id=$1`;
+            const values = [id];
+            const result = await client.query(sql, values);
+            returnArray = result.rows;
+        }
+        catch (error){
+            console.log(error);
+        }
+        finally{
+            await client.end();
+        }
+        return returnArray;
+    }
 }

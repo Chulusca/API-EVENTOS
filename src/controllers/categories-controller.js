@@ -17,4 +17,15 @@ router.get('', async(req,res) => {
     return respuesta;
 });
 
+router.get('/:id', async (req,res) => {
+    let respuesta;
+    const returnArray = await svc.getCategorieById(req.params.id);
+    if (returnArray != null){
+        respuesta = res.status(200).json(returnArray);
+    }
+    else{
+        respuesta = res.status(500).send("Error interno")
+    }
+});
+
 export default router;
