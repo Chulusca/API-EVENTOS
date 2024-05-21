@@ -40,4 +40,22 @@ export default class CategoriesRepository{
         }
         return returnArray;
     }
+    insertCategory = async (category) => {
+        const client = new Client(config)
+        try{
+            await client.connect();
+            const sql = `INSERT INTO public.event_categories (name, display_order)
+                        VALUES ($1, $2)`
+            const values = [category.name, category.display_order];
+            const result = await client.query(sql, values);
+            return true;
+        }
+        catch(error){
+            console.log(error);
+            return false;
+        }
+        finally{
+            await client.end();
+        }
+    }
 }

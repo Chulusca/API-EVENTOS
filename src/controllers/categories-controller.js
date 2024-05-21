@@ -30,7 +30,13 @@ router.get('/:id', async (req,res) => {
 
 router.post('', async(req,res) => {
     let respuesta;
-    respuesta = await svc.insertarCategoria();
+    respuesta = await svc.insertCategory(new Event_categories(1, req.body.name, req.body.display_order));
+    if(respuesta){
+        respuesta = res.status(201).send("Categoria creada correctamente");
+    }
+    else{
+        respuesta = res.status(400).send("Bad Request");
+    }
 });
 
 export default router;

@@ -13,6 +13,11 @@ class CategoriesService{
         const returnArray = await repo.getCategorieById(id);
         return returnArray;
     }
+    insertCategory = async (category) => {
+        const repo = new CategoriesRepository();
+        const returnArray = await repo.insertCategory(category);
+        return returnArray;
+    }
 }
 
 export default CategoriesService;

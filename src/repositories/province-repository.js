@@ -44,7 +44,7 @@ export default class ProvinceRepository{
         const client = new Client(config);
         try{
             await client.connect();
-            const sql = `INSERT INTO public.provinces ("name", full_name, latitude, longitude, display_order) 
+            const sql = `INSERT INTO public.provinces (name, full_name, latitude, longitude, display_order) 
                         VALUES ($1, $2, $3, $4, $5)`
             const values = [province.name, province.full_name, province.latitude, province.longitude, province.display_order];
             const result = await client.query(sql, values);
