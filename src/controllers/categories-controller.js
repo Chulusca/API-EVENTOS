@@ -28,4 +28,9 @@ router.get('/:id', async (req,res) => {
     }
 });
 
+router.post('', async(req,res) => {
+    let respuesta;
+    respuesta = await svc.insertarCategoria();
+});
+
 export default router;

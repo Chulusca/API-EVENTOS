@@ -1,7 +1,7 @@
 import express from "express"; // npm install express
 import cors from "cors"; // npm install cors
 import ProvinceRouter from "./src/controllers/province-controller.js"
-import CategorieRouter from "./src/controllers/categories-controller.js"
+import CategoryRouter from "./src/controllers/categories-controller.js"
 
 const app = express();
 const port = 3000;
@@ -10,7 +10,7 @@ const port = 3000;
 app.use(cors());
 app.use(express.json());
 app.use("/api/provinces", ProvinceRouter);
-app.use("/api/categories", CategorieRouter);
+app.use("/api/event-category", CategoryRouter);
 
 //Inicio el server y lo pongo a escuchar
 

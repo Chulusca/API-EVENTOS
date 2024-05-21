@@ -31,7 +31,7 @@ router.get('/:id', async(req,res) => {
 
 router.post('', async(req,res) => {
     let respuesta;
-    respuesta = await svc.insertProvince(new Province(req.body.name, req.body.full_name, req.body.latitudeM, req.body.longitude, req.body.display_order));
+    respuesta = await svc.insertProvince(new Province(1, req.body.name, req.body.full_name, req.body.latitude, req.body.longitude, req.body.display_order));
     if(respuesta){
         respuesta = res.status(201).send("Provincia creada correctamente");
     }
@@ -42,7 +42,7 @@ router.post('', async(req,res) => {
 
 router.put('', async(req,res) => {
     let respuesta;
-    respuesta = await svc.updateById(new Province(req.body.id, req.body.name, req.body.full_name, req.body.latitudeM, req.body.longitude, req.body.display_order));
+    respuesta = await svc.updateById(new Province(req.body.id, req.body.name, req.body.full_name, req.body.latitude, req.body.longitude, req.body.display_order));
     if(respuesta){
         respuesta = res.status(201).send("Provincia actualizada correctamente");
     }
