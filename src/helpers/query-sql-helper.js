@@ -10,7 +10,7 @@ export default class PostgreQuery{
         try{
             await client.connect(); // Connect with sql client.
             const result = await client.query(query, values);
-            returnArray = result.rows;
+            returnArray = result;
         }
         catch(error){
             console.log(error);

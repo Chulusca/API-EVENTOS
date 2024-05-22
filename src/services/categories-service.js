@@ -26,6 +26,11 @@ class CategoriesService{
         const response = await repo.updateCategory(category);
         return response;
     }
+    deleteCategory = async (id) =>{
+        const repo = new CategoriesRepository();
+        const response = await repo.deleteCategory(id);
+        return response;
+    }
 }
 
 export default CategoriesService;

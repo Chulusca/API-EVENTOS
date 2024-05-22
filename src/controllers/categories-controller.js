@@ -45,11 +45,23 @@ router.put('', async(req,res) =>{
     if(respuesta === true){
         respuesta = res.status(200).send("Updated");
     }
-    else if(respuesta = "invalid"){
+    else if(respuesta == "invalid"){
         respuesta = res.status(400).send("Invalid Name");
     }
     else{
         respuesta = res.status(404).send("Unable to find category");
+    }
+});
+
+router.delete('/:id', async(req,res) => {
+    let respuesta;
+    let temp = await svc.getCategoryById(req.params.id);
+    respuesta = await svc.deleteCategory(req.params.id);
+    if(respuesta){
+        respuesta = res.status(200).json(temp);
+    }
+    else{
+        respuesta = res.status(404).send("Not found");
     }
 });
 

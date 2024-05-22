@@ -39,7 +39,6 @@ export default class ProvinceRepository{
         }
         return returnArray;
     }
-    // INSERT INTO public.provinces (id, "name", full_name, latitude, longitude, display_order) VALUES (2, N'Ciudad Autónoma de Buenos Aires', N'Ciudad Autónoma de Buenos Aires', -34.61444091796875, -58.445877075195312, NULL);
     insertProvince = async (province) => {
         const client = new Client(config);
         try{
