@@ -19,8 +19,8 @@ export default class ProvinceService{
     }
     updateById = async (province) => {
         const repo = new ProvinceRepository();
-        const responde = await repo.updateById(province);
-        return responde;
+        const response = await repo.updateById(province);
+        return response;
     }
     deleteProvinceById = async (id) =>{
         const repo = new ProvinceRepository();
