@@ -54,14 +54,13 @@ router.put('', async(req,res) =>{
 });
 
 router.delete('/:id', async(req,res) => {
-    let respuesta;
-    let temp = await svc.getCategoryById(req.params.id);
-    respuesta = await svc.deleteCategory(req.params.id);
-    if(respuesta){
-        respuesta = res.status(200).json(temp);
+    let response;
+    response = await svc.deleteCategory(req.params.id);
+    if(response.success){
+        response = res.status(200).send(response.category);
     }
     else{
-        respuesta = res.status(404).send("Not found");
+        response = res.status(404).send("Not found");
     }
 });
 

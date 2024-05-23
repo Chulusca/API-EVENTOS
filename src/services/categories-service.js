@@ -28,8 +28,11 @@ class CategoriesService{
     }
     deleteCategory = async (id) =>{
         const repo = new CategoriesRepository();
-        const response = await repo.deleteCategory(id);
-        return response;
+        const responseObject = {
+            category: await repo.getCategoryById(id),
+            success:  await repo.deleteCategory(id),
+        }
+        return responseObject;
     }
 }
 
