@@ -38,6 +38,7 @@ router.post('', async(req,res) => {
     else{
         respuesta = res.status(400).send("Error interno.");
     }
+    return respuesta;
 });
 
 router.put('', async(req,res) => {

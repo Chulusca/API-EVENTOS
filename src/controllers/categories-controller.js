@@ -26,6 +26,7 @@ router.get('/:id', async (req,res) => {
     else{
         respuesta = res.status(404).send("No se encontro")
     }
+    return respuesta;
 });
 
 router.post('', async(req,res) => {
@@ -37,6 +38,7 @@ router.post('', async(req,res) => {
     else{
         respuesta = res.status(400).send("Bad Request");
     }
+    return respuesta;
 });
 
 router.put('', async(req,res) =>{
@@ -51,6 +53,7 @@ router.put('', async(req,res) =>{
     else{
         respuesta = res.status(404).send("Unable to find category");
     }
+    return respuesta;
 });
 
 router.delete('/:id', async(req,res) => {
@@ -62,6 +65,7 @@ router.delete('/:id', async(req,res) => {
     else{
         response = res.status(404).send("Not found");
     }
+    return response;
 });
 
 export default router;
