@@ -7,17 +7,18 @@ const options = {
 }
 
 class JSONWebToken{
-    generateJWT(objeto){
-        const token = jwt.sign(objeto, secretKey, options);
+    async generateJWT(payload){
+        const token = jwt.sign(payload, secretKey, options);
         return token;
     }
     
-    decriptJWT(token){
+    async decryptJWT(token){
         try{
-            //Terminar funcion
+            const payload = await jwt.verify(token, secretKey)
+            return payload;
         }
         catch(e){
-
+            console.log(e);
         }
     }
 
