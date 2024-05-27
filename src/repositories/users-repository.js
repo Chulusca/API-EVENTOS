@@ -19,11 +19,12 @@ export default class UsersRepository{
         const response = await PQ.PostgreQuery(sql, values);
         return response.rows[0];
     }
-    CreateUsername = async (user) => {
+    CreateUser = async (user) => {
         const sql = `INSERT INTO public.users (first_name, last_name, username, password) VALUES ($1, $2, $3, $4)`
-        const values = [user.firs_name, user.last_name, user.username, user.password]
+        const values = [user.first_name, user.last_name, user.username, user.password]
         const response = await PQ.PostgreQuery(sql, values);
-        if(result.rowCount != 0){
+        console.log(response);
+        if(response.rowCount != 0){
             return true;
         }
         else{
