@@ -5,4 +5,12 @@ export default class ValidacionesHelper{
         return regex.test(email);
     }
 
-}
+    ValidarCadena = (cadena, minCaracteres) => {
+        if (cadena.trim().length === 0 || cadena.length < minCaracteres) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+}   
