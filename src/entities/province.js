@@ -16,4 +16,4 @@ class Province{
     }
 }
 
-export default Province;    
+export default Province; 

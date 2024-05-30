@@ -1,10 +1,11 @@
 import {Router} from "express";
 import UsersService from '../services/users-service.js';
-import AuthService from '../services/auth-service.js'
+import AutenticationMiddleware from "../middlewares/AutenticationMiddleware.js"
 import Users from '../entities/users.js';
 
 const router = Router();
 const svc = new UsersService();
+const middleware = new AutenticationMiddleware();
 
 router.post('/login', async (req,res) => {
     let respuesta;
@@ -26,6 +27,11 @@ router.post('/register', async (req, res) => {
     else{
         respuesta = res.status(400).send(respuesta);
     }   
+    return respuesta;
+});
+
+router.get('', middleware.AuthMiddleware, async (req, res) => {
+    let respuesta = res.status(200).send("No funcó");
     return respuesta;
 });
 
