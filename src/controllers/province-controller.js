@@ -1,4 +1,4 @@
-import {Router} from 'express';
+    import {Router} from 'express';
 import ProvinceService from '../services/province-service.js'
 import Province from '../entities/province.js';
 
