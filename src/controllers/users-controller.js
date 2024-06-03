@@ -31,7 +31,7 @@ router.post('/register', async (req, res) => {
 });
 
 router.get('', middleware.AuthMiddleware, async (req, res) => {
-    let respuesta = res.status(200).send("No funcó");
+    let respuesta = res.status(200).send("Si, funcionó");
     return respuesta;
 });
 
