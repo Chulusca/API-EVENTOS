@@ -2,6 +2,12 @@ import PostgreQuery from "../helpers/query-sql-helper.js";
 const PQ = new PostgreQuery();
 
 export default class EventRepository{
+    async getAsync(sql){
+        sql = `SELECT * FROM events ${sql}`
+        let returnArray = await PQ.PostgreQuery(sql);
+        return returnArray.rows;        
+    }
+
     async getAllAsync(page = 1){
 
         const sql = `WITH event_details AS (
@@ -80,4 +86,76 @@ export default class EventRepository{
         let returnArray = await PQ.PostgreQuery(sql);
         return returnArray.rows;
     }
+
+    async getById(id){
+        const sql = `select events.id,
+        events.name,
+        events.description,
+        events.id_event_category, 
+        events.id_event_location,
+        events.start_date, 
+        events.duration_in_minutes, 
+        events.price, 
+        events.enabled_for_enrollment, 
+        events.max_assistance, 
+        events.id_creator_user,
+        json_build_object(
+            'id', event_locations.id,
+            'id_location', event_locations.id_location,
+            'name', event_locations.name,
+            'full_address', event_locations.full_address,
+            'max_capacity', event_locations.max_capacity,
+            'latitude', event_locations.latitude,
+            'longitude', event_locations.longitude,
+            'id_creator_user', event_locations.id_creator_user,
+            'location', json_build_object(
+                'id', locations.id,
+                'name', locations.name,
+                'id_province', locations,
+                'latitude', locations.latitude,
+                'longitude', locations.longitude,
+                'province', json_build_object(
+                    'id', provinces.id,
+                    'name', provinces.name,
+                    'full_name', provinces.full_name,
+                    'latitude', provinces.latitude,
+                    'longitude', provinces.longitude,
+                    'display_order', provinces.display_order
+                )
+            )
+        ) as event_location,
+         json_build_object(
+            'id', users.id,
+            'first_name', users.first_name,
+            'last_name', users.last_name,
+            'username', users.username,
+            'password', users.password
+        )as creator_user,
+         (
+            select json_agg(json_build_object(tags.id, tags.name))
+            from tags
+            join event_tags on tags.id = event_tags.id_tag
+        
+            where event_tags.id = events.id
+        )as tags,
+            json_build_object(
+            'id', event_categories.id,
+            'name', event_categories.name,
+            'display_order', event_categories.display_order
+        ) as event_category
+        
+        from events
+        left join event_categories on events.id = event_categories.id
+        left join event_tags on events.id = event_tags.id
+        left join users on events.id = users.id
+        left join event_locations on events.id = event_locations.id
+        left join locations on event_locations.id = locations.id
+        left join provinces on locations.id_province = provinces.id
+        where events.id = $1`
+
+        let values = [id];
+        let returnArray = await PQ.PostgreQuery(sql, values);
+        return returnArray.rows[0];
+    }
+
 }
