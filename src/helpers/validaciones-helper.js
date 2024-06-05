@@ -13,4 +13,11 @@ export default class ValidacionesHelper{
         }
     }
 
+    ValidarEntero = (int) => {
+        if (typeof int !== 'number' || int !== Math.floor(int)) {
+            return 1;
+        }
+        return int;
+    }
+
 }   
