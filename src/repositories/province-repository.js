@@ -13,7 +13,7 @@ export default class ProvinceRepository{
             returnArray = result.rows;
         }
         catch (error){
-            console.log(error);
+            return false;
         }
         finally {
             await client.end();
@@ -32,7 +32,7 @@ export default class ProvinceRepository{
             returnArray = result.rows;
         }
         catch (error){
-            console.log(error);
+            return false;
         }
         finally {
             await client.end();
@@ -50,7 +50,6 @@ export default class ProvinceRepository{
             return true;
         }
         catch (error){
-            console.log(error);
             return false;
         }
         finally {
@@ -72,7 +71,6 @@ export default class ProvinceRepository{
             return true;
         }
         catch (error){
-            console.log(error);
             return false;
         }
         finally {
@@ -93,7 +91,6 @@ export default class ProvinceRepository{
             return true
         }   
         catch(error){
-            console.log(error);
             return null;
         }
         finally {

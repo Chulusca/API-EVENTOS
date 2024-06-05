@@ -4,7 +4,6 @@ const PQ = new PostgreQuery();
 export default class EventRepository{
     async getAsync(sql){
         sql = `SELECT * FROM events ${sql}`
-        console.log(sql);
         let returnArray = await PQ.PostgreQuery(sql);
         return returnArray.rows;        
     }

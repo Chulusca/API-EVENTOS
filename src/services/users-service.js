@@ -18,8 +18,6 @@ export default class UsersService{
         let objeto = await repo.GetByUsername(username);
        
         if (objeto != null){
-            console.log(objeto);
-            console.log(objeto.password);
             if(objeto.password === password){
                 returnObject.success = true;
                 returnObject.message = "Login Correcto";
@@ -40,7 +38,7 @@ export default class UsersService{
         const repo = new UsersRepository();
         const VH = new ValidacionesHelper();
         let response;
-        if (user.first_name.length < 3 || user.last_name.length < 3 || user.password.length < 3){
+        if (user.first_name.length < 3 || user.last_name.length < 3 || user.password.length < 3){       
             response = "El nombre, el apellido o la contraseña tienen menos de 3 caracteres.";
         }
         else if (!VH.ValidarEmail(user.username)){

@@ -14,7 +14,7 @@ export default class ValidacionesHelper{
     }
 
     ValidarEntero = (int) => {
-        if (typeof int !== 'number' || int !== Math.floor(int)) {
+        if (isNaN(int)) {
             return 1;
         }
         return int;

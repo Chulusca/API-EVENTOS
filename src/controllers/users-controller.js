@@ -30,9 +30,8 @@ router.post('/register', async (req, res) => {
     return respuesta;
 });
 
-router.get('', middleware.AuthMiddleware, async (req, res) => {
-    let respuesta = res.status(200).send("Si, funcionó");
-    console.log(req.user);
+router.get('/validartoken', middleware.AuthMiddleware, async (req, res) => {
+    let respuesta = res.status(200).send("Token Valido");
     return respuesta;
 });
 

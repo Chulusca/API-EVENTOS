@@ -23,7 +23,6 @@ export default class UsersRepository{
         const sql = `INSERT INTO public.users (first_name, last_name, username, password) VALUES ($1, $2, $3, $4)`
         const values = [user.first_name, user.last_name, user.username, user.password]
         const response = await PQ.PostgreQuery(sql, values);
-        console.log(response);
         if(response.rowCount != 0){
             return true;
         }
