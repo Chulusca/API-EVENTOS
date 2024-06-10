@@ -1,3 +1,7 @@
+import PQ from "./query-sql-helper"
+
+const sql = new PQ();
+
 export default class ValidacionesHelper{
 
     ValidarEmail = (email) => {
@@ -18,6 +22,13 @@ export default class ValidacionesHelper{
             return 1;
         }
         return int;
+    }
+
+    ValidarID = async (id, tabla) => {
+        const query = 'SELECT COUNT(*) FROM $1 WHERE id = $2';
+        values = [id, tabla];
+        let response = sql.PostgreQuery(query, values);
+        return result.rows[0].count > 0;
     }
 
 }   
