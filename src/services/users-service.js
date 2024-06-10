@@ -3,6 +3,8 @@ import AuthService from './auth-service.js';
 import Users from '../entities/users.js';
 import ValidacionesHelper from '../helpers/validaciones-helper.js';
 
+
+
 export default class UsersService{
 
     Login = async (username, password) => {
@@ -38,7 +40,7 @@ export default class UsersService{
         const repo = new UsersRepository();
         const VH = new ValidacionesHelper();
         let response;
-        if (user.first_name.length < 3 || user.last_name.length < 3 || user.password.length < 3){       
+        if (!VH.ValidarCadena(user.first_name, 3) || !VH.ValidarCadena(user.last_name, 3) || !VH.ValidarCadena(user.password, 3)){       
             response = "El nombre, el apellido o la contraseña tienen menos de 3 caracteres.";
         }
         else if (!VH.ValidarEmail(user.username)){
