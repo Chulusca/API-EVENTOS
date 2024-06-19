@@ -20,4 +20,4 @@ app.use("/api/event", EventRouter);
 
 app.listen(port, () => {
     console.log(`Example app listening on por ${port}`)
-});
+})

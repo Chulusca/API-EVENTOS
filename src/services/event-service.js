@@ -1,5 +1,6 @@
 import EventRepository from '../repositories/event-repository.js';
 import VH from '../helpers/validaciones-helper.js'
+import EventsEnrollmentService from '../services/events_enrollment-service.js';
 
 const validaciones = new VH();
 
@@ -37,5 +38,9 @@ export default class EventService{
         const repo = new EventRepository();
         const returnArray = await repo.getById(id);
         return returnArray;
+    }
+
+    getUsersEnrolls = async(first_name, last_name, username, attended, rating) => {
+
     }
 }

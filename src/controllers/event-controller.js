@@ -44,4 +44,16 @@ router.get('/:id', async(req, res) => {
     
 });
 
+router.get('/:id/enrollment', async (req, res) => {
+    let response;
+    const returnArray = await svc.getUsersEnrolls(req.query.first_name, req.query.last_name, req.query.username, req.query.attended, req.query.rating);
+
+    if(returnArray == null){
+        response = res.status(404).send('No se encontro el evento que cumpla con las caracteristicas');
+    }
+    else{
+        response = res.status(200).json(returnArray);
+    }
+});
+
 export default router;

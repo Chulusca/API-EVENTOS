@@ -1,7 +1,3 @@
-import PQ from "./query-sql-helper"
-
-const sql = new PQ();
-
 export default class ValidacionesHelper{
 
     ValidarEmail = (email) => {
