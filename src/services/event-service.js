@@ -3,6 +3,7 @@ import VH from '../helpers/validaciones-helper.js'
 import EventsEnrollmentService from '../services/events_enrollment-service.js';
 
 const validaciones = new VH();
+const EEsvc = new EventsEnrollmentService();
 
 export default class EventService{
 
@@ -14,7 +15,7 @@ export default class EventService{
         }
         if(category != null){
             console.log("llego")
-            sql += `id_event_category = ${validaciones.ValidarEntero(category)} AND `;
+            sql += `id_event_category = ${category} AND `;
         }
         if(startdate != null){
             sql += `start_date = '${startdate}' AND `;
@@ -40,7 +41,7 @@ export default class EventService{
         return returnArray;
     }
 
-    getUsersEnrolls = async(first_name, last_name, username, attended, rating) => {
-
+    getUsersEnrolls = async(id, first_name, last_name, username, attended, rating) => {
+        return EEsvc.getUsersEnrolls(id, first_name, last_name, username, attended, rating);
     }
 }
