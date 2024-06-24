@@ -44,4 +44,13 @@ export default class EventService{
     getUsersEnrolls = async(id, first_name, last_name, username, attended, rating) => {
         return EEsvc.getUsersEnrolls(id, first_name, last_name, username, attended, rating);
     }
+    createEvent = async(event) => {
+        const repo = new EventRepository();
+        // Falta validar el endpoint
+        if(VH.ValidarCadena(event.name, 3) || VH.ValidarCadena(event.description, 3)){
+            
+        }
+        const returnArray = await repo.createEvent(event);
+        return returnArray;
+    }
 }

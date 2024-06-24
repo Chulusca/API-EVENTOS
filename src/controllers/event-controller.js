@@ -1,6 +1,6 @@
 import {Router} from "express";
 import EventService from '../services/event-service.js';
-import Events from '../entities/events.js';
+import Event from '../entities/events.js';
 import AutenticationMiddleware from "../middlewares/AutenticationMiddleware.js"
 
 const router = Router();
@@ -61,6 +61,24 @@ router.get('/:id/enrollment', async (req, res) => {
 });
 
 // Eliminacion de eventos (CRUD)
+
+router.post('', middleware.AuthMiddleware, async (req, res) => {
+    let response;
+    const returnArray = await svc.createEvent(new Event(0, req.body.name, req.body.description, req.body.id_event_category, 
+        req.body.id_event_location, req.body.start_date, req.body.duration_in_minutes, req.body.price, 
+        req.body.enabled_for_enrollment, req.body.max_assistance, req.user.id));
+
+    if(returnArray){
+        response = res.status(201).send('Created')
+    }
+    else{   
+        response = res.status(400).send("Bad Request");
+    }
+    return response;
+});
+
+
+
 
 
 
