@@ -7,7 +7,7 @@ export default class EventsEnrollmentService{
         let query = `
             SELECT u.id, u.first_name, u.last_name, u.username
             FROM users u
-            JOIN eevent_enrollments ee ON u.id = ee.id_user
+            JOIN event_enrollments ee ON u.id = ee.id_user
             WHERE ee.id_event = $1
         `;
         const params = [id];

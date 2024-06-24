@@ -1,8 +1,10 @@
 import {Router} from "express";
 import EventService from '../services/event-service.js';
 import Events from '../entities/events.js';
+import AutenticationMiddleware from "../middlewares/AutenticationMiddleware.js"
 
 const router = Router();
+const middleware = new AutenticationMiddleware();
 const svc = new EventService();
 
 router.get('', async(req, res) => {
@@ -57,5 +59,10 @@ router.get('/:id/enrollment', async (req, res) => {
     }
     return response;
 });
+
+// Eliminacion de eventos (CRUD)
+
+
+
 
 export default router;
