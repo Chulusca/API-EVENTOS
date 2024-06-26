@@ -91,7 +91,18 @@ router.put('', middleware.AuthMiddleware, async (req,res) => {
     return response;
 });
 
+router.delete('/:id', middleware.AuthMiddleware, async (req, res) => {
+    let response; 
+    const returnObject = await svc.DeleteEventById(req.params.id);
 
+    if(returnObject.status){
+        response = res.status(returnObject.code).send(returnObject.message);
+    }
+    else{
+        response = res.status(returnObject.code).send(returnObject.message);
+    }
+    return response;
+});
 
 
 

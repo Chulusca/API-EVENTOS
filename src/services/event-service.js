@@ -77,4 +77,24 @@ export default class EventService{
         }
         return returnObject;
     }
+
+    DeleteEventById = async(id) => {
+        const repo = new EventRepository();
+        let returnObject = {
+            status: false,
+            message: "Datos invalidos, ",
+            code: 404
+        }
+        if(await validaciones.ValidarID(id, 'events')){
+            await repo.DeleteEventById(id);
+            returnObject.status = true;
+            returnObject.message = "Eliminado con exito";
+            returnObject.code = 200;
+        }
+        else{
+            returnObject.message = "No se encontro el evento";
+            returnObject.code = 404;
+        }
+        return returnObject;
+    }
 }

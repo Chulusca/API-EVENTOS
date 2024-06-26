@@ -179,6 +179,18 @@ export default class EventRepository{
         let values = [event.name, event.description, event.id_event_category, event.id_event_location, event.start_date, event.duration_in_minutes, event.price, event.enable_for_enrollment, event.max_assistance, event.id];
         let returnArray = await PQ.PostgreQuery(sql, values);
         return true;
+
+        //ᡕᠵデ气亠
     }
 
+    async DeleteEventById(id){
+        const sql = `DELETE FROM events WHERE id = $1`;
+        const values = [id];
+        let returnArray = await PQ.PostgreQuery(sql, values);
+        console.log(returnArray);
+        if(returnArray.rowCount != 0){
+            return true;
+        }
+        return false;
+    }
 }
