@@ -68,11 +68,11 @@ router.post('', middleware.AuthMiddleware, async (req, res) => {
         req.body.id_event_location, req.body.start_date, req.body.duration_in_minutes, req.body.price, 
         req.body.enabled_for_enrollment, req.body.max_assistance, req.user.id));
 
-    if(returnArray){
-        response = res.status(201).send('Created')
+    if(returnArray.status){
+        response = res.status(201).send(returnArray.message);
     }
     else{   
-        response = res.status(400).send("Bad Request");
+        response = res.status(400).send(returnArray.message);
     }
     return response;
 });

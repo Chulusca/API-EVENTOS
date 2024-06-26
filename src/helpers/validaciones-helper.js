@@ -27,4 +27,9 @@ export default class ValidacionesHelper{
         return result.rows[0].count > 0;
     }
 
+    ValidarNumero = async (numero) =>{
+        let returnValue;
+        //Terminar funcion
+    }
+
 }   
