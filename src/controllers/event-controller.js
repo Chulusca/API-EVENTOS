@@ -1,11 +1,13 @@
 import {Router} from "express";
 import EventService from '../services/event-service.js';
 import Event from '../entities/events.js';
+import EventEnrollmentService from '../services/events_enrollment-service.js'
 import AutenticationMiddleware from "../middlewares/AutenticationMiddleware.js"
 
 const router = Router();
 const middleware = new AutenticationMiddleware();
 const svc = new EventService();
+const enrollmentService = new EventEnrollmentService();
 
 router.get('', async(req, res) => {
     let response; 
@@ -102,6 +104,14 @@ router.delete('/:id', middleware.AuthMiddleware, async (req, res) => {
         response = res.status(returnObject.code).send(returnObject.message);
     }
     return response;
+});
+
+// Inscripcion a un evento
+
+router.post('/:id/enrollment', middleware.AuthMiddleware, async (req, res) => {
+    let response;
+    const returnObject = await enrollmentService.RegistrarUsuario(req.params.id);
+    
 });
 
 
