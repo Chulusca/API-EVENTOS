@@ -46,16 +46,35 @@ export default class EventService{
     }
     createEvent = async(event) => {
         const repo = new EventRepository();
-        let returnArray = {
+        let returnObject = {
             status: false,
             message: "Datos invalidos, name está vacío o tiene menos de tres (3) letras."
         }
-        // Falta validar el endpoint
+        
         if(validaciones.ValidarCadena(event.name, 3) && validaciones.ValidarCadena(event.description, 3)){
             await repo.createEvent(event);
-            returnArray.status = true;
-            returnArray.message = "Evento creado correctamente"
+            returnObject.status = true;
+            returnObject.message = "Evento creado correctamente"
         }
-        return returnArray;
+        return returnObject;
+    }
+
+    UpdateEvent = async(event) => {
+        const repo = new EventRepository();
+        let returnObject = {
+            status: false,
+            message: "Datos invalidos, name está vacío o tiene menos de tres (3) letras."
+        }
+        if(await validaciones.ValidarID(event.id, 'events')){
+            if(validaciones.ValidarCadena(event.name, 3) && validaciones.ValidarCadena(event.description, 3)){
+                await repo.UpdateEvent(event);
+                returnObject.status = true;
+                returnObject.message = "Evento actualizado correctamente"
+            }
+        }
+        else{
+            returnObject.message = "No se encontro el evento"
+        }
+        return returnObject;
     }
 }

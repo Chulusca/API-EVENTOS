@@ -77,7 +77,19 @@ router.post('', middleware.AuthMiddleware, async (req, res) => {
     return response;
 });
 
-
+router.put('', middleware.AuthMiddleware, async (req,res) => {
+    let response; 
+    const returnArray = await svc.UpdateEvent(new Event(req.body.id, req.body.name, req.body.description, req.body.id_event_category, 
+        req.body.id_event_location, req.body.start_date, req.body.duration_in_minutes, req.body.price, 
+        req.body.enabled_for_enrollment, req.body.max_assistance, req.user.id));
+    if(returnArray.status){
+        response = res.status(201).send(returnArray.message);
+    }
+    else{   
+        response = res.status(400).send(returnArray.message);
+    }   
+    return response;
+});
 
 
 

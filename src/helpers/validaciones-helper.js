@@ -1,3 +1,6 @@
+import querySqlHelper from './query-sql-helper.js'
+const sql = new querySqlHelper();
+
 export default class ValidacionesHelper{
 
     ValidarEmail = (email) => {
@@ -21,15 +24,18 @@ export default class ValidacionesHelper{
     }
 
     ValidarID = async (id, tabla) => {
-        const query = 'SELECT COUNT(*) FROM $1 WHERE id = $2';
-        values = [id, tabla];
-        let response = sql.PostgreQuery(query, values);
-        return result.rows[0].count > 0;
+        const query = 'SELECT COUNT(*) FROM ' + tabla + ' WHERE id = $1';
+        let values = [id];
+        let response = await sql.PostgreQuery(query, values);
+        console.log(response.rows[0].count > 0)
+        return response.rows[0].count > 0;
     }
-
-    ValidarNumero = async (numero) =>{
-        let returnValue;
-        //Terminar funcion
+    EsNumero = async (numero) =>{
+        return typeof numero === 'number' && !Number.isNaN(numero);
     }
-
+    //console.log(vh.EsNumero(20)); true
+    //console.log(vh.EsNumero('hola')); false
+    //console.log(vh.EsNumero('20')); false
+    //console.log(vh.EsNumero(-34.2223)); true
+    //console.log(vh.EsNumero(34.2224)); true
 }   
