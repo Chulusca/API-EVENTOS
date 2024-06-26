@@ -2,7 +2,7 @@
 
 Este proyecto de API desarrollado por Tomás Czernuszka, Lucas Koziupa y Thiago Palachi utiliza Node.js y Express para gestionar eventos futuros. La API permite explorar, modificar y gestionar la inscripción a eventos, así como obtener información sobre los participantes.
 
-<h2>Objetivo></h2> 
+<h2>Objetivo</h2> 
 El objetivo principal de este proyecto es proporcionar una API RESTful que permita:
 
 - Explorar eventos futuros.
