@@ -96,13 +96,8 @@ router.put('', middleware.AuthMiddleware, async (req,res) => {
 router.delete('/:id', middleware.AuthMiddleware, async (req, res) => {
     let response; 
     const returnObject = await svc.DeleteEventById(req.params.id);
-
-    if(returnObject.status){
-        response = res.status(returnObject.code).send(returnObject.message);
-    }
-    else{
-        response = res.status(returnObject.code).send(returnObject.message);
-    }
+    
+    response = res.status(returnObject.code).send(returnObject.message);
     return response;
 });
 
@@ -110,7 +105,7 @@ router.delete('/:id', middleware.AuthMiddleware, async (req, res) => {
 
 router.post('/:id/enrollment', middleware.AuthMiddleware, async (req, res) => {
     let response;
-    const returnObject = await enrollmentService.RegistrarUsuario(req.params.id);
+    //const returnObject = await enrollmentService.RegistrarUsuario(req.params.id);
     
 });
 
