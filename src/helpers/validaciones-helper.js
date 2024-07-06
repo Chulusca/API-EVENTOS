@@ -27,7 +27,6 @@ export default class ValidacionesHelper{
         const query = 'SELECT COUNT(*) FROM ' + tabla + ' WHERE id = $1';
         let values = [id];
         let response = await sql.PostgreQuery(query, values);
-        console.log(response.rows[0].count > 0)
         return response.rows[0].count > 0;
     }
     EsNumero = async (numero) =>{
