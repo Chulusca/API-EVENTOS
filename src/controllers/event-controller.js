@@ -11,7 +11,7 @@ const enrollmentService = new EventEnrollmentService();
 
 router.get('', async(req, res) => {
     let response; 
-    const returnArray = await svc.getAllAsync();
+    const returnArray = await svc.getAllAsync(req.body.page);
 
     if(returnArray == null){
         response = res.status(404).send('No se encontraron eventos');

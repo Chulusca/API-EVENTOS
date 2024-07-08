@@ -85,4 +85,35 @@ export default class EventLocationService{
         }
         return returnObject;
     }
+    updateUserLocation = async (event_location) => {
+        const repo = new EventLocationRepository();
+        let returnObject = new Object();
+
+        if(!(await validaciones.ValidarID(event_location.id_location, 'locations'))){
+            returnObject = Object.negarObjeto('id_locations es invalido');  
+            return returnObject;
+        }
+        if (!validaciones.ValidarCadena(event_location.name, 3) || !validaciones.ValidarCadena(event_location.full_address, 3)){
+            returnObject = Object.negarObjeto('Name or Full_address has less than 3 characters'); 
+            return returnObject; 
+        }
+        if(event_location.max_capacity <= 0){
+            returnObject = Object.negarObjeto('Invalid max_capacity');
+            return returnObject;
+        }
+
+        const response = await repo.updateUserLocation(event_location);
+
+        if(response.rowCount > 0){
+            returnObject.status = true;
+            returnObject.code = 200;
+            returnObject.message = "EventLocation actualizado con exito";
+        }
+        else{
+            returnObject = Object.negarObjeto('Error a la hora de actualizar el event-location');
+        }   
+
+        return returnObject;
+
+    }
 }

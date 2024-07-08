@@ -40,7 +40,11 @@ router.post('', middleware.AuthMiddleware, async (req, res) => {
 });
 
 router.put('', middleware.AuthMiddleware, async (req, res) => {
-    //actualizar un event_location
+    let response;
+    const returnObject = await svc.updateUserLocation(new EventLocations(req.body.id, req.body.id_location, req.body.name, 
+        req.body.full_address, req.body.max_capacity,
+        req.body.latitude, req.body.longitude, req.user.id));
+    return res.status(returnObject.code).send(returnObject.message);
 });
 
 router.delete('/:id', middleware.AuthMiddleware, async (req, res) => {

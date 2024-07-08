@@ -24,5 +24,12 @@ export default class EventLocationsRepository{
         const values = [id, userId];
         return await PQ.PostgreQuery(sql, values);
     }
+    updateUserLocation = async (event_location) => {
+        const sql = `UPDATE public.event_locations
+        SET id_location = $1, name = $2, full_address = $3, max_capacity = $4, latitude = $5, longitude = $6
+        WHERE id = $7 and id_creator_user = $8`;
+        const values = [event_location.id_location, event_location.name, event_location.full_address, event_location.max_capacity, event_location.latitude, event_location.longitude, event_location.id, event_location.id_creator_user];
+        return await PQ.PostgreQuery(sql, values);
+    }
 
 }
