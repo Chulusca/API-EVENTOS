@@ -71,6 +71,4 @@ router.delete('/:id', async(req,res) => {
     return respuesta;
 });
 
-//FALTA UN ENDPOINT
-
 export default router;
