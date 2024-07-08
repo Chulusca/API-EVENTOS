@@ -14,4 +14,9 @@ export default class LocationsRepository{
         let values = [id];
         return await PQ.PostgreQuery(sql, values);
     }
+    getEventLocationByLocationId = async (locationId, userId) => {
+        const sql = `SELECT * FROM event_locations where id_location = $1 and id_creator_user = $2`;
+        let values = [locationId, userId];
+        return await PQ.PostgreQuery(sql, values);
+    }
 }

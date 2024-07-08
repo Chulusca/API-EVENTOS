@@ -22,11 +22,33 @@ class LocationsService{
         let returnObject = new Object();
 
         if(!await validaciones.ValidarID(id, 'locations')){
-            returnObject = Object.negarObjeto('No existe la id del objeto');
+            returnObject = Object.negarObjeto('No existe la id de la location');
             return returnObject;
         }
 
         const response = await repo.getLocationById(id);
+
+        returnObject.status = true;
+        returnObject.code = 200;
+        returnObject.JSONcontent = response.rows;
+
+        return returnObject;
+    }
+    getEventLocationByLocationId = async (locationId, userId) => {
+        const repo = new LocationsRepository();
+        let returnObject = new Object();
+
+        if(!await validaciones.ValidarID(locationId, 'locations')){
+            returnObject = Object.negarObjeto('No existe la id de la location');
+            return returnObject;
+        }
+
+        const response = await repo.getEventLocationByLocationId(locationId, userId);
+
+        if(!response.rowCount > 0){
+            returnObject = Object.negarObjeto('No te pertenece el event-location');
+            return returnObject;
+        }
 
         returnObject.status = true;
         returnObject.code = 200;

@@ -26,4 +26,18 @@ router.get('/:id', async (req, res) => {
     return response;
 });
 
+router.get('/:id/event-location', middleware.AuthMiddleware, async (req, res) => {
+    let response;
+    const returnObject = await svc.getEventLocationByLocationId(req.params.id, req.user.id);
+
+    if(!returnObject.status){
+        response = res.status(returnObject.code).json(returnObject.message);  
+    }
+    else{
+        response = res.status(returnObject.code).json(returnObject.JSONcontent);
+    }
+    return response;
+
+});
+
 export default router;
