@@ -20,6 +20,13 @@ export default class EventsEnrrollmentRepository{
         console.log(returnArray);
         return returnArray;
     }
+    enrollUser = async (idEvent, idUser, fechaActual) => {
+        const sql = `INSERT INTO event_enrollments (id_event, id_user, registration_date_time, attended)
+        VALUES ($1, $2, $3, B'0');`;
+        const values = [idEvent, idUser, fechaActual];
+        let returnArray = await PQ.PostgreQuery(sql, values)
+        return returnArray;
+    }
 
     
 }

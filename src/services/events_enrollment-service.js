@@ -63,7 +63,41 @@ export default class EventsEnrollmentService{
             returnObject = Object.negarObjeto('El evento no existe o usted no esta registrado');
         }
         return returnObject;
+    }
+    
+    enrollUser = async (idEvent, idUser) =>{
+        let returnObject = new Object();
+        const repo = new EventsEnrollmentRepository();
+        const fechaActual = new Date().toISOString();
+        
+        if(await validaciones.EventoTermino(idEvent)){
+            returnObject = Object.negarObjeto('El evento ya termino');
+            return returnObject;
+        }
+        if(!await validaciones.EnableEnrollment(idEvent)){
+            returnObject = Object.negarObjeto('El evento no esta habilitado para registrarse');
+            return returnObject;
+        }
+        if(await validaciones.EventIsFull(idEvent)){
+            returnObject = Object.negarObjeto('El evento esta lleno o no existe');
+            return returnObject;
+        }
+        if(await validaciones.UserAlreadyEnroll(idEvent, idUser)){
+            returnObject = Object.negarObjeto('El usuario ya se encuentra registrado');
+            return returnObject
+        }
+        
+        const response = await repo.enrollUser(idEvent, idUser, fechaActual); 
 
+        if(response.rowCount > 0){
+            returnObject.status = true;
+            returnObject.message = 'Se registro correctamente al evento';
+            returnObject.code = 200;
+        }
+        else{
+            returnObject = Object.negarObjeto('Sucedio un error al crear el evento');
+        }
+        return returnObject;
     }
     
 

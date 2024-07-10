@@ -43,12 +43,42 @@ export default class ValidacionesHelper{
             const startDate = response.rows[0].start_date;
             const fechaInicioEvento = new Date(startDate);
             const fechaActualObj = new Date(fechaActual);
-            if (fechaActualObj > fechaInicioEvento) {
+            if (fechaActualObj >= fechaInicioEvento) {
                 return true;
             }
         }
         return false;
 
+    }
+    EnableEnrollment = async (id) => {
+        const query = 'select enabled_for_enrollment from events where id = $1';
+        const values = [id];
+        let response = await sql.PostgreQuery(query, values);
+        
+        if(response.rows.enabled_for_enrollment = 1){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    EventIsFull = async (id) => {
+        let query = 'select count(*) from event_enrollments where id_event = $1';
+        const values = [id];
+        let cantidadDeEnrollments = await sql.PostgreQuery(query, values);
+        cantidadDeEnrollments = cantidadDeEnrollments.rows[0].count;
+        query = 'select max_assistance from events where id = $1';
+        let max_assistance = await sql.PostgreQuery(query, values);
+        max_assistance = max_assistance.rows[0].count;
+        if(max_assistance == cantidadDeEnrollments){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    UserAlreadyEnroll = async (idEvento, idUsuario) => {
+        const query = ``;
     }
     
 }   

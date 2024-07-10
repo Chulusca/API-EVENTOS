@@ -6,6 +6,17 @@ const router = Router();
 const middleware = new AutenticationMiddleware();
 const svc = new EventEnrollmentService();
 
+
+//Punto 9
+
+router.post('/:idEvent', middleware.AuthMiddleware, async (req, res) => {
+    let response; 
+    const returnObject = await svc.enrollUser(req.params.idEvent, req.user.id);
+    return res.status(returnObject.code).send(returnObject.message);
+});
+
+
+// Punto 10
 router.get('/:id', async (req, res) => {
     let response;
     const returnArray = await svc.getUsersEnrolls(req.params.id, req.query.first_name, req.query.last_name, req.query.username, req.query.attended, req.query.rating);
