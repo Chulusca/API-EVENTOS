@@ -40,10 +40,6 @@ export default class EventService{
         const returnArray = await repo.getById(id);
         return returnArray;
     }
-
-    getUsersEnrolls = async(id, first_name, last_name, username, attended, rating) => {
-        return EEsvc.getUsersEnrolls(id, first_name, last_name, username, attended, rating);
-    }
     createEvent = async(event) => {
         const repo = new EventRepository();
         let returnObject = {
