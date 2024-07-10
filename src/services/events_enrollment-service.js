@@ -95,10 +95,38 @@ export default class EventsEnrollmentService{
             returnObject.code = 200;
         }
         else{
-            returnObject = Object.negarObjeto('Sucedio un error al crear el evento');
+            returnObject = Object.negarObjeto('Sucedio un error al registrar al usuario');
         }
         return returnObject;
     }
     
+    deleteUserEnroll = async (idEvent, idUser) => {
+        let returnObject = new Object();
+        const repo = new EventsEnrollmentRepository();
+        if(await validaciones.EventoTermino(idEvent)){
+            returnObject = Object.negarObjeto('El evento ya termino');
+            return returnObject;
+        }
+        if(await validaciones.UserAlreadyEnroll(idEvent, idUser)){
+            returnObject = Object.negarObjeto('El usuario no se encuentra registrado');
+            return returnObject
+        }
+        if(!await validaciones.ValidarID(idEvent, 'events')){
+            returnObject = Object.notFound('El evento no existe');
+            return returnObject
+        }
+
+        let response = await repo.deleteUserEnroll(idEvent, idUser);
+        if(response.rowCount > 0){
+            returnObject.status = true;
+            returnObject.message = 'Se elimino correctamente el registro';
+            returnObject.code = 200;
+        }
+        else{
+            returnObject = Object.negarObjeto('Sucedio un error al eliminar el registro');
+        }
+        return returnObject;
+    
+    }
 
 }

@@ -19,6 +19,14 @@ class Object{
         obj.JSONcontent = null;
         return obj;
     }
+    static notFound(mensaje){
+        const obj = new Object();
+        obj.status = false;
+        obj.message = mensaje;
+        obj.code = 404;
+        obj.JSONcontent = null;
+        return obj;
+    }
 }
 
 export default Object;

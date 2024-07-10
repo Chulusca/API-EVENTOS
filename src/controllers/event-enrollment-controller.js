@@ -15,6 +15,12 @@ router.post('/:idEvent', middleware.AuthMiddleware, async (req, res) => {
     return res.status(returnObject.code).send(returnObject.message);
 });
 
+router.delete('/:idEvent', middleware.AuthMiddleware, async (req, res) => {
+    let response;
+    const returnObject = await svc.deleteUserEnroll(req.params.idEvent, req.user.id);
+    return res.status(returnObject.code).send(returnObject.message);
+});
+
 
 // Punto 10
 router.get('/:id', async (req, res) => {
@@ -34,7 +40,6 @@ router.patch('/:idEvent/:rating', middleware.AuthMiddleware, async (req, res) =>
     const returnObject = await svc.setRating(req.params.rating, req.body.observations, req.params.idEvent, req.user.id);
     return res.status(returnObject.code).send(returnObject.message);
 });
-
 
 
 export default router;
