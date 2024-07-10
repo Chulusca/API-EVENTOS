@@ -78,7 +78,16 @@ export default class ValidacionesHelper{
         }
     }
     UserAlreadyEnroll = async (idEvento, idUsuario) => {
-        const query = ``;
+        const query = `select count(*) from event_enrollments where id_user = $1 and id_event = $2`;
+        const values = [idUsuario, idEvento];
+        let cantidadDeEnrollments = await sql.PostgreQuery(query, values);
+        cantidadDeEnrollments = cantidadDeEnrollments.rows[0].count;
+        if(cantidadDeEnrollments > 1){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
     
 }   

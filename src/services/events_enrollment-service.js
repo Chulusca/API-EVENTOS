@@ -86,7 +86,7 @@ export default class EventsEnrollmentService{
             returnObject = Object.negarObjeto('El usuario ya se encuentra registrado');
             return returnObject
         }
-        
+
         const response = await repo.enrollUser(idEvent, idUser, fechaActual); 
 
         if(response.rowCount > 0){
