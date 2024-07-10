@@ -1,4 +1,8 @@
 import EventsEnrollmentRepository from '../repositories/event_enrollment-repository.js';
+import Object from '../entities/returnObject.js'
+import VH from '../helpers/validaciones-helper.js'
+
+const validaciones = new VH();
 
 export default class EventsEnrollmentService{
 
@@ -33,6 +37,34 @@ export default class EventsEnrollmentService{
             params.push(rating);
         }
         const returnArray = repo.getUsersEnrolls(query, params);
-    return returnArray;
+        return returnArray;
     }
+
+    setRating = async (rating, observation, idEvent, idUser) => {
+        let returnObject = new Object();
+        const repo = new EventsEnrollmentRepository();
+        if(rating > 10 || rating < 0){
+            returnObject = Object.negarObjeto('Rating invalido');
+            return returnObject;
+        }
+        if(!await validaciones.EventoTermino(idEvent)){
+            returnObject = Object.negarObjeto('El evento aun no finalizo'); 
+            return returnObject;
+        }
+
+        const response = await repo.setRating(rating, observation, idEvent, idUser);
+
+        if(response.rowCount > 0){
+            returnObject.status = true;
+            returnObject.message = 'Rating actualizado con exito';
+            returnObject.code = 200;
+        }
+        else{
+            returnObject = Object.negarObjeto('El evento no existe o usted no esta registrado');
+        }
+        return returnObject;
+
+    }
+    
+
 }

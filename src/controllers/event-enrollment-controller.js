@@ -18,4 +18,12 @@ router.get('/:id', async (req, res) => {
     return response;
 });
 
+router.patch('/:idEvent/:rating', middleware.AuthMiddleware, async (req, res) => {
+    let response; 
+    const returnObject = await svc.setRating(req.params.rating, req.body.observations, req.params.idEvent, req.user.id);
+    return res.status(returnObject.code).send(returnObject.message);
+});
+
+
+
 export default router;

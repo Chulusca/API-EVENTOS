@@ -32,9 +32,23 @@ export default class ValidacionesHelper{
     EsNumero = async (numero) =>{
         return typeof numero === 'number' && !Number.isNaN(numero);
     }
-    //console.log(vh.EsNumero(20)); true
-    //console.log(vh.EsNumero('hola')); false
-    //console.log(vh.EsNumero('20')); false
-    //console.log(vh.EsNumero(-34.2223)); true
-    //console.log(vh.EsNumero(34.2224)); true
+
+    EventoTermino = async (id) => {
+        const fechaActual = new Date().toISOString();
+        const query = 'select start_date from events where id = $1';
+        const values = [id];
+        let response = await sql.PostgreQuery(query, values);
+
+        if (response.rows.length > 0) {
+            const startDate = response.rows[0].start_date;
+            const fechaInicioEvento = new Date(startDate);
+            const fechaActualObj = new Date(fechaActual);
+            if (fechaActualObj > fechaInicioEvento) {
+                return true;
+            }
+        }
+        return false;
+
+    }
+    
 }   
