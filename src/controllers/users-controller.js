@@ -31,7 +31,7 @@ router.post('/register', async (req, res) => {
 });
 
 router.get('/validartoken', middleware.AuthMiddleware, async (req, res) => {
-    let respuesta = res.status(200).send("Token Valido");
+    let respuesta = res.status(200).json({ message: "Token Válido", user: req.user });
     return respuesta;
 });
 
