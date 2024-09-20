@@ -2,7 +2,6 @@ import jwt from 'jsonwebtoken';
 
 const secretKey = 'ThiagoPajachiTomasCzernuszkyLucasNegro$';
 const options = {
-    expiresIn: '1h',
     issuer: 'TLT'
 }
 

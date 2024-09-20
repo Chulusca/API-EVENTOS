@@ -75,7 +75,6 @@ export default class EventRepository{
             LEFT JOIN provinces ON locations.id_province = provinces.id
             -- Añade OFFSET y LIMIT aquí
             OFFSET $1 
-            LIMIT 5  
         ),
         total_event_count AS (
             SELECT count(*) AS total_count
