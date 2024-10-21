@@ -82,7 +82,7 @@ export default class ValidacionesHelper{
         const values = [idUsuario, idEvento];
         let cantidadDeEnrollments = await sql.PostgreQuery(query, values);
         cantidadDeEnrollments = cantidadDeEnrollments.rows[0].count;
-        if(cantidadDeEnrollments > 1){
+        if(cantidadDeEnrollments >= 1){
             return true;
         }
         else{

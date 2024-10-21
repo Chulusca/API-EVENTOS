@@ -10,7 +10,6 @@ const svc = new EventEnrollmentService();
 //Punto 9
 
 router.post('/:idEvent', middleware.AuthMiddleware, async (req, res) => {
-    let response; 
     const returnObject = await svc.enrollUser(req.params.idEvent, req.user.id);
     return res.status(returnObject.code).send(returnObject.message);
 });

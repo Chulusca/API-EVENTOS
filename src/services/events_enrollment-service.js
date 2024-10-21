@@ -107,7 +107,7 @@ export default class EventsEnrollmentService{
             returnObject = Object.negarObjeto('El evento ya termino');
             return returnObject;
         }
-        if(await validaciones.UserAlreadyEnroll(idEvent, idUser)){
+        if(!await validaciones.UserAlreadyEnroll(idEvent, idUser)){
             returnObject = Object.negarObjeto('El usuario no se encuentra registrado');
             return returnObject
         }
