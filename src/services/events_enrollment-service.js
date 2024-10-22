@@ -69,7 +69,11 @@ export default class EventsEnrollmentService{
         let returnObject = new Object();
         const repo = new EventsEnrollmentRepository();
         const fechaActual = new Date().toISOString();
-        
+
+        if(!await validaciones.ValidarID(idEvent, 'events')){
+            returnObject = Object.negarObjeto('El evento no existe');
+            return returnObject;
+        }
         if(await validaciones.EventoTermino(idEvent)){
             returnObject = Object.negarObjeto('El evento ya termino');
             return returnObject;
@@ -79,7 +83,7 @@ export default class EventsEnrollmentService{
             return returnObject;
         }
         if(await validaciones.EventIsFull(idEvent)){
-            returnObject = Object.negarObjeto('El evento esta lleno o no existe');
+            returnObject = Object.negarObjeto('El evento esta lleno');
             return returnObject;
         }
         if(await validaciones.UserAlreadyEnroll(idEvent, idUser)){
